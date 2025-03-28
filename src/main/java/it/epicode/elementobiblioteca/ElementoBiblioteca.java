@@ -10,7 +10,10 @@ import java.util.Set;
 public abstract class ElementoBiblioteca {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long codiceISBN;
+    private Long id;
+
+    @Column(length = 50, nullable = false)
+    private String codiceISBN;
 
     @Column(length = 50, nullable = false)
     private String titolo;
@@ -24,11 +27,27 @@ public abstract class ElementoBiblioteca {
     @ManyToMany(mappedBy = "elementoBiblioteca")
     private Set<Prestito> prestiti;
 
-    public Long getCodiceISBN() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Set<Prestito> getPrestiti() {
+        return prestiti;
+    }
+
+    public void setPrestiti(Set<Prestito> prestiti) {
+        this.prestiti = prestiti;
+    }
+
+    public String getCodiceISBN() {
         return codiceISBN;
     }
 
-    public void setCodiceISBN(Long codiceISBN) {
+    public void setCodiceISBN(String codiceISBN) {
         this.codiceISBN = codiceISBN;
     }
 
@@ -59,7 +78,7 @@ public abstract class ElementoBiblioteca {
     public ElementoBiblioteca() {
     }
 
-    public ElementoBiblioteca(Long codiceISBN, String titolo, int annoPubblicazione, int numeroPagine) {
+    public ElementoBiblioteca(String codiceISBN, String titolo, int annoPubblicazione, int numeroPagine) {
         this.codiceISBN = codiceISBN;
         this.titolo = titolo;
         this.annoPubblicazione = annoPubblicazione;

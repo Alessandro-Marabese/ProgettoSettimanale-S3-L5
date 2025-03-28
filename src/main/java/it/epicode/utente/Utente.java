@@ -11,7 +11,11 @@ import java.util.List;
 @Table(name = "utente")
 public class Utente {
     @Id
-    private Long numeroTessera;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+
+    @Column(nullable = false)
+    private int numeroTessera;
 
     @Column(length = 50, nullable = false)
     private String nome;
@@ -28,18 +32,18 @@ public class Utente {
     public Utente() {
     }
 
-    public Utente(Long numeroTessera, String nome, String cognome, LocalDate dataNascita) {
+    public Utente(int numeroTessera, String nome, String cognome, LocalDate dataNascita) {
         this.numeroTessera = numeroTessera;
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = dataNascita;
     }
 
-    public Long getNumeroTessera() {
+    public int getNumeroTessera() {
         return numeroTessera;
     }
 
-    public void setNumeroTessera(Long numeroTessera) {
+    public void setNumeroTessera(int numeroTessera) {
         this.numeroTessera = numeroTessera;
     }
 
