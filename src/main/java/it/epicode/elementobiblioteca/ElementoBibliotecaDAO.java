@@ -23,11 +23,12 @@ public class ElementoBibliotecaDAO {
         em.persist(e);
     }
 
-    public void rimuoviElemento(String codiceISBN) {
-        ElementoBiblioteca e = em.find(ElementoBiblioteca.class, codiceISBN);
-        if(e != null) {
-            em.remove(e);
-        }
+    public ElementoBiblioteca rimuoviElemento(String codiceISBN) {
+        ElementoBiblioteca elemento = em.createQuery("select e from ElementoBiblioteca e where e.codiceISBN = :codiceISBN", ElementoBiblioteca.class)
+                .setParameter("codiceISBN", codiceISBN)
+                .getSingleResult();
+        if(elemento != null) em.remove(elemento);
+        return elemento;
     }
 
     public ElementoBiblioteca ricercaPerISBN(String codiceISBN) {

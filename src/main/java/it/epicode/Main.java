@@ -110,9 +110,11 @@ public class Main {
         List<ElementoBiblioteca> elementoCercatoPerAutore = elementodao.ricercaPerAutore("JRR Tolkien");
         System.out.println("Ricerca per autore: " + elementoCercatoPerAutore);
 
-        List<ElementoBiblioteca> elementoCercatoPerTitolo = elementodao.ricercaPerTitolo("La settimana enigmistica");
+        List<ElementoBiblioteca> elementoCercatoPerTitolo = elementodao.ricercaPerTitolo("enigmistica");
         System.out.println("Ricerca per titolo: " + elementoCercatoPerTitolo);
 
+
+        System.out.println("Elemento rimosso con successo: " + elementodao.rimuoviElemento("1234567891"));
 
 
         em.close();
