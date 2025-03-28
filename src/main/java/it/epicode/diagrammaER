@@ -1,0 +1,15 @@
+
+
+Libro/Rivista M------------M Prestito
+
+Un libro/rivista può essere associato a diversi prestiti, mentre a un prestito possono essere associati più libri/riviste.
+
+Utente 1----------------M Prestito
+
+Un utente può effettuare più prestiti diversi, ma ogni prestito può essere associato ad un solo e unico utente.
+
+ElementoBiblioteca
+    |--Libro
+    |--Rivista
+
+ElementoBiblioteca è la superclasse da cui derivano le sottoclassi Libro e Rivista.
