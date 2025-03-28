@@ -9,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "prestito")
+@NamedQuery(name = "prestiti_scaduti.find", query = "select p from Prestito p where p.dataRestituzioneEffettiva is NULL and p.dataRestituzionePrevista < CURRENT_DATE")
 public class Prestito {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
