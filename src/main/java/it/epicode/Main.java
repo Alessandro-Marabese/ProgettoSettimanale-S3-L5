@@ -1,11 +1,13 @@
 package it.epicode;
 
 
+import it.epicode.elementobiblioteca.ElementoBiblioteca;
 import it.epicode.elementobiblioteca.ElementoBibliotecaDAO;
 import it.epicode.elementobiblioteca.libro.Libro;
 import it.epicode.elementobiblioteca.rivista.Periodicità;
 import it.epicode.elementobiblioteca.rivista.Rivista;
 
+import it.epicode.prestito.Prestito;
 import it.epicode.prestito.PrestitoDAO;
 import it.epicode.utente.Utente;
 import it.epicode.utente.UtenteDAO;
@@ -14,6 +16,8 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class Main {
@@ -61,9 +65,39 @@ public class Main {
 
         em.getTransaction().commit();
 
+        em.getTransaction().begin();
+        Set<ElementoBiblioteca> set1 = new HashSet<>();
+        set1.add(libro1);
+        set1.add(libro2);
+        Prestito prestito1 = new Prestito(u1, set1, LocalDate.of(2023, 1, 1), LocalDate.of(2023, 2, 1), LocalDate.of(2024, 2, 1));
+        prestitodao.aggiungiPrestito(prestito1);
+
+        Set<ElementoBiblioteca> set2 = new HashSet<>();
+        set2.add(libro3);
+        set2.add(libro4);
+        set2.add(rivista2);
+        Prestito prestito2 = new Prestito(u2, set2, LocalDate.of(2023, 2, 1), LocalDate.of(2023, 3, 1), LocalDate.of(2023, 5 ,1));
+        prestitodao.aggiungiPrestito(prestito2);
 
 
+        Set<ElementoBiblioteca> set3 = new HashSet<>();
+        set3.add(rivista3);
+        set3.add(rivista4);
+        set3.add(rivista5);
+        Prestito prestito3 = new Prestito(u3, set3, LocalDate.of(2023, 3, 1), LocalDate.of(2023, 4, 1), LocalDate.of(2023, 4, 1));
+        prestitodao.aggiungiPrestito(prestito3);
 
+
+        Set<ElementoBiblioteca> set4 = new HashSet<>();
+        set4.add(libro1);
+        set4.add(libro2);
+        set4.add(libro3);
+        set4.add(libro4);
+        set4.add(libro5);
+        Prestito prestito4 = new Prestito(u4, set4, LocalDate.of(2023, 4, 1), LocalDate.of(2023, 5, 1), LocalDate.of(2024,1,1));
+        prestitodao.aggiungiPrestito(prestito4);
+
+        em.getTransaction().commit();
 
 
 

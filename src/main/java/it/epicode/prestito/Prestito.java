@@ -25,21 +25,20 @@ public class Prestito {
                inverseJoinColumns = @JoinColumn(name = "elemento_biblioteca_id"))
     private Set<ElementoBiblioteca> elementoBiblioteca;
 
-    @Column(nullable = false)
+    @Column
     private LocalDate dataInizioPrestito;
 
-    @Column(nullable = false)
+    @Column
     private LocalDate dataRestituzionePrevista;
 
-    @Column(nullable = false)
+    @Column
     private LocalDate dataRestituzioneEffettiva;
 
 
     public Prestito() {
     }
 
-    public Prestito(Long id, Utente utente, Set<ElementoBiblioteca> elementoBiblioteca, LocalDate dataInizioPrestito, LocalDate dataRestituzionePrevista, LocalDate dataRestituzioneEffettiva) {
-        this.id = id;
+    public Prestito(Utente utente, Set<ElementoBiblioteca> elementoBiblioteca, LocalDate dataInizioPrestito, LocalDate dataRestituzionePrevista, LocalDate dataRestituzioneEffettiva) {
         this.utente = utente;
         this.elementoBiblioteca = elementoBiblioteca;
         this.dataInizioPrestito = dataInizioPrestito;
