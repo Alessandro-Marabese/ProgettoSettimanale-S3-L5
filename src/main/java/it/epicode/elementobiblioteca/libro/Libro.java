@@ -32,4 +32,12 @@ public class Libro extends ElementoBiblioteca {
         this.autore = autore;
         this.genere = genere;
     }
+
+    @Override
+    public String toString() {
+        return "Libro{" +
+                "autore='" + autore + '\'' +
+                ", genere='" + genere + '\'' +
+                '}';
+    }
 }

@@ -17,6 +17,7 @@ import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -98,6 +99,19 @@ public class Main {
         prestitodao.aggiungiPrestito(prestito4);
 
         em.getTransaction().commit();
+
+
+        ElementoBiblioteca elementoCercatoPerISBN = elementodao.ricercaPerISBN("1234567890");
+        System.out.println("Ricerca per ISBN: " + elementoCercatoPerISBN);
+
+        List<ElementoBiblioteca> elementoCercatoPerAnno = elementodao.ricercaPerAnno(1960);
+        System.out.println("Ricerca per anno: " + elementoCercatoPerAnno);
+
+        List<ElementoBiblioteca> elementoCercatoPerAutore = elementodao.ricercaPerAutore("JRR Tolkien");
+        System.out.println("Ricerca per autore: " + elementoCercatoPerAutore);
+
+        List<ElementoBiblioteca> elementoCercatoPerTitolo = elementodao.ricercaPerTitolo("La settimana enigmistica");
+        System.out.println("Ricerca per titolo: " + elementoCercatoPerTitolo);
 
 
 

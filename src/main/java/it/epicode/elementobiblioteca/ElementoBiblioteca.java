@@ -84,4 +84,16 @@ public abstract class ElementoBiblioteca {
         this.annoPubblicazione = annoPubblicazione;
         this.numeroPagine = numeroPagine;
     }
+
+    @Override
+    public String toString() {
+        return "ElementoBiblioteca{" +
+                "id=" + id +
+                ", codiceISBN='" + codiceISBN + '\'' +
+                ", titolo='" + titolo + '\'' +
+                ", annoPubblicazione=" + annoPubblicazione +
+                ", numeroPagine=" + numeroPagine +
+                ", prestiti=" + prestiti +
+                '}';
+    }
 }

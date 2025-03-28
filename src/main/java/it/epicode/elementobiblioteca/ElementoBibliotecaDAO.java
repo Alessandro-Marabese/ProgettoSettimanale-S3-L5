@@ -31,7 +31,9 @@ public class ElementoBibliotecaDAO {
     }
 
     public ElementoBiblioteca ricercaPerISBN(String codiceISBN) {
-        return em.find(ElementoBiblioteca.class, codiceISBN);
+        return em.createQuery("select e from ElementoBiblioteca e where e.codiceISBN = :codiceISBN", ElementoBiblioteca.class)
+                .setParameter("codiceISBN", codiceISBN)
+                .getSingleResult();
     }
 
     public List<ElementoBiblioteca> ricercaPerAnno(int anno) {

@@ -17,4 +17,11 @@ public class Rivista extends ElementoBiblioteca {
         super(codiceISBN, titolo, annoPubblicazione, numeroPagine);
         this.periodicità = periodicità;
     }
+
+    @Override
+    public String toString() {
+        return "Rivista{" +
+                "periodicità=" + periodicità +
+                '}';
+    }
 }
