@@ -35,7 +35,7 @@ public class Libro extends ElementoBiblioteca {
 
     @Override
     public String toString() {
-        return "Libro{" +
+        return super.toString() + ", Libro{" +
                 "autore='" + autore + '\'' +
                 ", genere='" + genere + '\'' +
                 '}';

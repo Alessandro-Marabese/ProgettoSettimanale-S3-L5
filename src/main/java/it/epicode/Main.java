@@ -90,12 +90,9 @@ public class Main {
 
 
         Set<ElementoBiblioteca> set4 = new HashSet<>();
-        set4.add(libro1);
-        set4.add(libro2);
-        set4.add(libro3);
-        set4.add(libro4);
         set4.add(libro5);
-        Prestito prestito4 = new Prestito(u4, set4, LocalDate.of(2023, 4, 1), LocalDate.of(2023, 5, 1), LocalDate.of(2024,1,1));
+        set4.add(rivista1);
+        Prestito prestito4 = new Prestito(u4, set4, LocalDate.of(2023, 4, 1), LocalDate.of(2023, 5, 1), null);
         prestitodao.aggiungiPrestito(prestito4);
 
         em.getTransaction().commit();
@@ -116,6 +113,11 @@ public class Main {
 
         System.out.println("Elemento rimosso con successo: " + elementodao.rimuoviElemento("1234567891"));
 
+        List<Prestito> prestitiUtente = prestitodao.ricercaPrestitiUtente(1);
+        System.out.println("Prestiti utente: " + prestitiUtente);
+
+        List<Prestito> prestitiScaduti = prestitodao.ricercaPrestitiScaduti();
+        System.out.println("Prestiti scaduti: " + prestitiScaduti);
 
         em.close();
         emf.close();

@@ -20,7 +20,7 @@ public class Rivista extends ElementoBiblioteca {
 
     @Override
     public String toString() {
-        return "Rivista{" +
+        return super.toString() + ", Rivista{" +
                 "periodicità=" + periodicità +
                 '}';
     }

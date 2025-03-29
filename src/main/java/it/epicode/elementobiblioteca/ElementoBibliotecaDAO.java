@@ -1,6 +1,9 @@
 package it.epicode.elementobiblioteca;
 
+import it.epicode.elementobiblioteca.exception.BibliotecaException;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.PersistenceException;
 
 import java.util.List;
 
@@ -12,7 +15,11 @@ public class ElementoBibliotecaDAO {
     }
 
     public void update(ElementoBiblioteca e) {
-        em.merge(e);
+        try {
+            em.merge(e);
+        } catch(PersistenceException ex) {
+            throw new BibliotecaException("Errore durante l'aggiornamento dell'elemento" + ex);
+        }
     }
 
     public ElementoBiblioteca getById(long id) {
@@ -20,38 +27,67 @@ public class ElementoBibliotecaDAO {
     }
 
     public void aggiungiElemento(ElementoBiblioteca e) {
-        em.persist(e);
+        try {
+            em.persist(e);
+        } catch (PersistenceException ex) {
+            throw new BibliotecaException("Errore durante l'aggiunta dell'elemento" + ex);
+        }
     }
 
     public ElementoBiblioteca rimuoviElemento(String codiceISBN) {
-        ElementoBiblioteca elemento = em.createQuery("select e from ElementoBiblioteca e where e.codiceISBN = :codiceISBN", ElementoBiblioteca.class)
-                .setParameter("codiceISBN", codiceISBN)
-                .getSingleResult();
-        if(elemento != null) em.remove(elemento);
-        return elemento;
+        try {
+            ElementoBiblioteca elemento = em.createQuery("select e from ElementoBiblioteca e where e.codiceISBN = :codiceISBN", ElementoBiblioteca.class)
+                    .setParameter("codiceISBN", codiceISBN)
+                    .getSingleResult();
+            if (elemento != null) em.remove(elemento);
+            return elemento;
+        } catch (NoResultException ex) {
+            throw new BibliotecaException("Nessun elemento trovato con codice ISBN " + codiceISBN);
+        } catch (PersistenceException ex) {
+            throw new BibliotecaException("Errore durante la rimozione dell'elemento" + ex);
+        }
     }
 
     public ElementoBiblioteca ricercaPerISBN(String codiceISBN) {
-        return em.createQuery("select e from ElementoBiblioteca e where e.codiceISBN = :codiceISBN", ElementoBiblioteca.class)
-                .setParameter("codiceISBN", codiceISBN)
-                .getSingleResult();
+        try {
+            return em.createQuery("select e from ElementoBiblioteca e where e.codiceISBN = :codiceISBN", ElementoBiblioteca.class)
+                    .setParameter("codiceISBN", codiceISBN)
+                    .getSingleResult();
+        } catch (NoResultException ex) {
+            throw new BibliotecaException("Nessun elemento trovato con codice ISBN " + codiceISBN);
+        } catch (PersistenceException ex) {
+            throw new BibliotecaException("Errore durante la ricerca per codice ISBN" + ex);
+        }
     }
 
     public List<ElementoBiblioteca> ricercaPerAnno(int anno) {
-        return em.createQuery("select e from ElementoBiblioteca e where e.annoPubblicazione = :anno", ElementoBiblioteca.class)
-                .setParameter("anno", anno)
-                .getResultList();
+        try {
+            return em.createQuery("select e from ElementoBiblioteca e where e.annoPubblicazione = :anno", ElementoBiblioteca.class)
+                    .setParameter("anno", anno)
+                    .getResultList();
+        } catch (PersistenceException ex) {
+            throw new BibliotecaException("Errore durante la ricerca per anno" + ex);
+        }
     }
 
     public List<ElementoBiblioteca> ricercaPerAutore(String autore) {
-        return em.createQuery("select e from ElementoBiblioteca e where e.autore = :autore", ElementoBiblioteca.class)
-                .setParameter("autore", autore)
-                .getResultList();
+        try {
+            return em.createQuery("select e from ElementoBiblioteca e where e.autore = :autore", ElementoBiblioteca.class)
+                    .setParameter("autore", autore)
+                    .getResultList();
+        } catch (PersistenceException ex) {
+            throw new BibliotecaException("Errore durante la ricerca per autore" + ex);
+        }
     }
 
     public List<ElementoBiblioteca> ricercaPerTitolo(String titolo) {
-        return em.createQuery("select e from ElementoBiblioteca e where e.titolo like :titolo", ElementoBiblioteca.class)
-                .setParameter("titolo", "%" + titolo + "%")
-                .getResultList();
+        try {
+            return em.createQuery("select e from ElementoBiblioteca e where e.titolo like :titolo", ElementoBiblioteca.class)
+                    .setParameter("titolo", "%" + titolo + "%")
+                    .getResultList();
+        } catch (PersistenceException ex) {
+            throw new BibliotecaException("Errore durante la ricerca per titolo" + ex);
+        }
     }
+
 }
